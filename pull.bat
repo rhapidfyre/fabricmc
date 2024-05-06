@@ -2,29 +2,31 @@
 
 REM Change directory to your Minecraft mods repository
 cd C:/Minecraft/fabricmc
+set stash_created=0
 
-REM Check if there are any uncommitted changes
+REM Stash any uncommitted changes and record if a stash was created
 git diff-index --quiet HEAD --
 if errorlevel 1 (
-    REM If there are uncommitted changes, stash them
-    git stash push -u --quiet
+    git stash push -u >nul 2>&1
+    set stash_created=1
 )
 
 REM Pull changes from the remote main branch
-git pull origin main --quiet
+git pull origin main >nul 2>&1
 
-REM Check if the pull operation was successful
+REM Output result of the pull operation and alert the user
 if %errorlevel% neq 0 (
-    REM If the pull operation failed, notify the user
-    echo Failed to pull changes from the remote main branch. Please check your network connection and try again.
+	echo Failed to pull changes from main:origin (fabricmc)
 ) else (
-    REM Apply the top stash if there were any
-    git stash pop --quiet
+    echo Successfully Updated from main:origin (fabricmc)
+)
 
-    REM Drop any stashed changes if they were applied successfully
-    if not errorlevel 1 (
-        git stash drop --quiet
+REM Only alert the user if there are issues applying the stash
+if %stash_created% == 1 (
+    git stash pop >nul 2>&1
+    if errorlevel 1 (
+		echo Failed to restore pre-update changes.
+    ) else (
+        echo Pre-update changes restored successfully.
     )
-
-    echo Changes pulled and applied successfully.
 )

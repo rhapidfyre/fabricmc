@@ -37,7 +37,7 @@ if errorlevel 1 (
     echo Uncommitted changes detected.
 
     REM Stash changes if they haven't been stashed
-    git stash -u --quiet
+    git stash -u >nul 2>&1
 
     REM Fetch the latest changes from the remote repository
     git fetch --quiet
@@ -52,7 +52,7 @@ if errorlevel 1 (
     git checkout -b "%new_branch%"
 
     REM Apply stashed changes
-    git stash pop --quiet
+    git stash pop >nul 2>&1
 
     REM Add all changes and commit
     git add .
