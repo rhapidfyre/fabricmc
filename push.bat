@@ -1,6 +1,8 @@
 @echo off
+
 REM Change directory to your Minecraft mods repository
-cd C:/Minecraft/mods
+cd C:/Minecraft/fabricmc
+pull.bat
 
 REM Ask for confirmation before proceeding
 echo.
