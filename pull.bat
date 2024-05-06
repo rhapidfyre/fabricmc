@@ -1,2 +1,3 @@
-cd C:\Users\starf\AppData\Roaming\.minecraft\mods
+D:
+cd D:\Minecraft\mods
 git pull
