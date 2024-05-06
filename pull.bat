@@ -1,7 +1,7 @@
 @echo off
 
 REM Change directory to your Minecraft mods repository
-cd C:/Minecraft/mods
+cd C:/Minecraft/fabricmc
 
 REM Check if there are any uncommitted changes
 git diff-index --quiet HEAD --
