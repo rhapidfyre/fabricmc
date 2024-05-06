@@ -6,12 +6,10 @@ REM Ask for confirmation before proceeding
 echo.
 echo *************************************************************************
 echo !!  WARNING  !!!!!!!!!!!!!!!!    WARNING    !!!!!!!!!!!!!!!!  WARNING  !!
-echo !!            YOU ARE ABOUT TO MAKE CHANGES TO THE CLOUD!              !!
 echo *************************************************************************
 echo.
+echo               YOU ARE ABOUT TO MAKE CHANGES TO THE CLOUD!              
 echo           Please make sure this is what you are trying to do.
-echo.
-echo *************************************************************************
 echo.
 echo.
 
@@ -19,11 +17,11 @@ set /P confirm="Do you wish to continue? (Y/n): "
 
 if /I "%confirm%"=="y" (
 	echo So be it.
-	timeout /t 1 /nobreak >nul
+	timeout /t 2 /nobreak >nul
 	
 ) else if /I "%confirm%"=="yes" (
 	echo So be it.
-	timeout /t 1 /nobreak >nul
+	timeout /t 2 /nobreak >nul
 	
 ) else (
     echo Great choice, it's always good to double check.
@@ -80,6 +78,16 @@ if errorlevel 1 (
 
     REM Clean up - go back to the main branch either way
     git checkout main
+	
+	echo The script is done, BUT..
+	echo - - - The server won't update until it restarts. - - -
+	echo.
+	echo Ask Melanie to restart the server for the new mods to take effect.
+	echo Of course, you could play single player while you're waiting.
+	echo.
+	echo.
+	echo Have an amazing day! :)
+		
 ) else (
     echo No changes detected. The cloud files were not changed.
 	echo You may close this script.
