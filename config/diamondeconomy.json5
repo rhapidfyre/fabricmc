@@ -1,0 +1,37 @@
+{
+	// List of items used as currency
+	"currencies": [
+		"minecraft:diamond",
+		"minecraft:diamond_block"
+	],
+	// Values of each currency in the same order, decimals not allowed (must be in ascending order unless greedyWithdraw is disabled)
+	"currencyValues": [
+		1,
+		9
+	],
+	// Where the diamondeconomy.sqlite file is located (ex: "C:/Users/example/Desktop/server/world/diamondeconomy.sqlite")
+	"fileLocation": null,
+	// Name of the base command (null to disable base command)
+	"commandName": "diamonds",
+	// Names of the subcommands (null to disable command)
+	"topCommandName": "top",
+	"balanceCommandName": "balance",
+	"depositCommandName": "deposit",
+	"sendCommandName": "send",
+	"withdrawCommandName": "withdraw",
+	// Names of the admin subcommands (null to disable command)
+	"setCommandName": "set",
+	"modifyCommandName": "modify",
+	/* Try to withdraw items using the most high value items possible (ex. diamond blocks then diamonds) 
+	    If disabled withdraw will give player the first item in the list
+	*/
+	"greedyWithdraw": true,
+	// Money the player starts with when they first join the server
+	"startingMoney": 0,
+	// How often to add money to each player, in seconds (0 to disable)
+	"moneyAddTimer": 0,
+	// Amount of money to add each cycle
+	"moneyAddAmount": 0,
+	// Permission level (1-4) of the op commands in diamond economy. Set to 2 to allow command blocks to use these commands.
+	"opCommandsPermissionLevel": 4
+}

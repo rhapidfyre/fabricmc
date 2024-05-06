@@ -1,0 +1,14 @@
+{
+	// What to protect chest shops from
+	"shopProtectPlayerOpen": true,
+	"shopProtectPlayerBreak": true,
+	"shopProtectExplosion": true,
+	"shopProtectPiston": true,
+	"shopProtectHopper": true,
+	// Note: currently doesn't protect double chests
+	"shopProtectHopperMinecart": true,
+	// Whether or not to use the base diamond economy command
+	"useBaseCommand": true,
+	// Name of the command to tell the player how to make a chestshop (null to disable)
+	"chestshopCommandName": "chestshop"
+}
