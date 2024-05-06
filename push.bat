@@ -39,14 +39,14 @@ if errorlevel 1 (
 
     git ls-files -u > nul
     if errorlevel 1 (
-        git commit -m "Merged updates from %new_branch%"
-        git push origin main
-        echo Mods updated and merged successfully.
-    ) else (
         echo Merge conflicts detected. Please resolve manually.
         REM Windows alert
         powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('There was a problem merging the mods due to a conflict in files. If you are not familiar with resolving merge conflicts, please contact the Server Owner to resolve this problem.', 'Merge Conflict')"
         git merge --abort
+    ) else (
+        git commit -m "Merged updates from %new_branch%"
+        git push origin main
+        echo Mods updated and merged successfully.
     )
 
     REM Clean up - go back to the main branch either way
@@ -54,3 +54,4 @@ if errorlevel 1 (
 ) else (
     echo No changes to sync.
 )
+pause
