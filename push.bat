@@ -2,26 +2,33 @@
 REM Change directory to your Minecraft mods repository
 cd C:/Minecraft/mods
 
-net session >nul 2>&1
-if %errorlevel% == 0 (
-	echo Running with administrator privileges. Skipping confirmations.
-) else (
-	echo *************************************************************************
-	echo !!!!!!!!!!!!!!!!!!!!!!!!!!!    WARNING    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	echo !!            YOU ARE ABOUT TO MAKE CHANGES TO THE CLOUD!              !!
-	echo *************************************************************************
-	echo If you continue, you will change all of the mods on everyone's computers!
-	echo           Please make sure this is what you are trying to do.
-	echo *************************************************************************
-	pause
-)
-
 REM Ask for confirmation before proceeding
-set /P confirm="You are changing the mods on our minecraft server. Type 'GO' to proceed."
-if /I "%confirm%" NEQ "GO" (
+echo.
+echo *************************************************************************
+echo !!  WARNING  !!!!!!!!!!!!!!!!    WARNING    !!!!!!!!!!!!!!!!  WARNING  !!
+echo !!            YOU ARE ABOUT TO MAKE CHANGES TO THE CLOUD!              !!
+echo *************************************************************************
+echo.
+echo           Please make sure this is what you are trying to do.
+echo.
+echo *************************************************************************
+echo.
+echo.
+
+set /P confirm="Do you wish to continue? (Y/n): "
+
+if /I "%confirm%"=="y" (
+	echo So be it.
+	timeout /t 1 /nobreak >nul
+	
+) else if /I "%confirm%"=="yes" (
+	echo So be it.
+	timeout /t 1 /nobreak >nul
+	
+) else (
     echo Great choice, it's always good to double check.
-	pause
     exit /b
+	
 )
 
 REM Check for uncommitted changes
