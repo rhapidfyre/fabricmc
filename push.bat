@@ -32,6 +32,7 @@ if /I "%confirm%"=="y" (
 )
 
 REM Check for uncommitted changes
+git add -A
 git diff-index --quiet HEAD --
 if errorlevel 1 (
     echo Uncommitted changes detected.
