@@ -13,9 +13,11 @@ if errorlevel 1 (
 REM Pull changes from the remote main branch
 git pull origin main --quiet
 
-REM Check if there are any conflicts
-git ls-files -u >nul
-if errorlevel 1 (
+REM Check if the pull operation was successful
+if %errorlevel% neq 0 (
+    REM If the pull operation failed, notify the user
+    echo Failed to pull changes from the remote main branch. Please check your network connection and try again.
+) else (
     REM Apply the top stash if there were any
     git stash pop --quiet
 
@@ -25,9 +27,4 @@ if errorlevel 1 (
     )
 
     echo Changes pulled and applied successfully.
-) else (
-    REM Notify the user of conflicts and prompt them to resolve them manually
-    echo Merge conflicts detected. Please resolve them manually.
 )
-
-pause
