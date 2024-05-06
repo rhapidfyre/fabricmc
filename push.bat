@@ -53,7 +53,7 @@ if errorlevel 1 (
     git stash pop --quiet
 
     REM Add all changes and commit
-    git add . >nul 2>&1
+    git add .
     git commit -m "(Mods Updated by Push-Script) %date% %time%" --quiet
 
     REM Push the new branch
@@ -79,7 +79,7 @@ if errorlevel 1 (
     REM Clean up - go back to the main branch either way
     git checkout main >nul 2>&1
     
-	echo.
+    echo.
     echo - - - The server won't update until it restarts. - - -
     echo Ask Melanie to restart the server for the new mods to take effect.
     echo Of course, you could play single player while you're waiting.
