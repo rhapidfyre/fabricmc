@@ -49,7 +49,7 @@ if errorlevel 1 (
     SET new_branch=%new_branch::=-%
     SET new_branch=%new_branch:/=-%
     SET new_branch=%new_branch: =%
-    git checkout -b %new_branch%
+    git checkout -b "%new_branch%"
 
     REM Apply stashed changes
     git stash pop --quiet
