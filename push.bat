@@ -89,6 +89,8 @@ if errorlevel 1 (
     REM Clean up - go back to the main branch either way
     git checkout main --quiet
     
+    echo.
+    echo.
     echo The script is done, BUT..
     echo - - - The server won't update until it restarts. - - -
     echo.
