@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 
 REM Change directory to your Minecraft mods repository
 cd C:/Minecraft/fabricmc
@@ -32,19 +33,17 @@ if /I "%confirm%"=="y" (
 )
 
 REM Check for uncommitted changes
-git add -A
 git diff-index --quiet HEAD --
 if errorlevel 1 (
     echo Uncommitted changes detected.
 
     REM Stash changes if they haven't been stashed
-    git stash -u >nul 2>&1
+    git stash push -u --quiet
 
     REM Fetch the latest changes from the remote repository
-    git fetch --quiet
+    git fetch origin --quiet
 
     REM Create and switch to a new branch
-     REM Create and switch to a new branch
     FOR /F "tokens=1-5 delims=/: " %%a in ("%DATE% %TIME%") do (
         SET "year=%%c"
         SET "month=%%a"
@@ -54,40 +53,45 @@ if errorlevel 1 (
     )
     SET "new_branch=update-!year!!month!!day!-!hour!!minute!"
     echo Creating and switching to branch: "!new_branch!"
-    git checkout -b "%new_branch%"
+    git checkout -b "!new_branch!"
 
     REM Apply stashed changes
-    git stash pop >nul 2>&1
+    git stash pop --quiet
 
     REM Add all changes and commit
     git add .
-    git commit -m "(Mods Updated by Push-Script) %date% %time%"
+    git commit -m "(Mods Updated by Push-Script) %DATE% %TIME%"
 
-    REM Push the new branch
-    git push
+    REM Push the new branch to the remote repository
+    git push origin "!new_branch!"
 
     REM Attempt to merge new_branch into main
     git checkout main
-    git pull --quiet
-    git merge %new_branch% --no-commit --no-ff
+    git pull origin main --quiet
+    git merge "!new_branch!" --no-commit --no-ff --quiet
 
     git ls-files -u > nul
     if errorlevel 1 (
         echo Merge conflicts detected. Please resolve manually.
         REM Windows alert
-        powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('There was a problem merging the mods due to a conflict in files. If you are not familiar with resolving merge conflicts, please contact the Server Owner to resolve this problem.', 'Merge Conflict')"
+        powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.MessageBox]::Show('There was a problem merging the mods due to a conflict in files. If you are not familiar with resolving merge conflicts, please contact the Server Owner to resolve this problem.', 'Merge Conflict')"
         git merge --abort --quiet
     ) else (
-        git commit -m "Merged updates from %new_branch%" --quiet
-        git push --quiet
+        git commit -m "Merged updates from !new_branch!"
+        git push origin main --quiet
         echo Mods updated and merged successfully.
+
+        REM Clean up the branches
+        git branch -d "!new_branch!"
+        git push origin --delete "!new_branch!"
     )
 
     REM Clean up - go back to the main branch either way
-    git checkout main >nul 2>&1
+    git checkout main --quiet
     
-    echo.
+    echo The script is done, BUT..
     echo - - - The server won't update until it restarts. - - -
+    echo.
     echo Ask Melanie to restart the server for the new mods to take effect.
     echo Of course, you could play single player while you're waiting.
     echo.
@@ -95,7 +99,6 @@ if errorlevel 1 (
     echo Have an amazing day, you amazing person!
         
 ) else (
-    echo.
     echo No changes detected
     echo The cloud files were not changed.
     echo.
@@ -103,3 +106,4 @@ if errorlevel 1 (
 )
 
 pause
+endlocal
