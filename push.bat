@@ -2,7 +2,7 @@
 
 REM Change directory to your Minecraft mods repository
 cd C:/Minecraft/fabricmc
-pull.bat
+call pull.bat
 
 REM Ask for confirmation before proceeding
 echo.
