@@ -8,7 +8,7 @@ call pull.bat
 REM Ask for confirmation before proceeding
 echo.
 echo *************************************************************************
-echo !!  WARNING  !!!!!!!!!!!!!!!!    WARNING    !!!!!!!!!!!!!!!!  WARNING  !!
+echo **  WARNING  ****************    WARNING    ****************  WARNING  **
 echo *************************************************************************
 echo.
 echo               YOU ARE ABOUT TO MAKE CHANGES TO THE CLOUD!              
