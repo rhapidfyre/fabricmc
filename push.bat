@@ -77,11 +77,10 @@ if errorlevel 1 (
     )
 
     REM Clean up - go back to the main branch either way
-    git checkout main
+    git checkout main >nul 2>&1
     
-    echo The script is done, BUT..
+	echo.
     echo - - - The server won't update until it restarts. - - -
-    echo.
     echo Ask Melanie to restart the server for the new mods to take effect.
     echo Of course, you could play single player while you're waiting.
     echo.
