@@ -47,22 +47,22 @@ if errorlevel 1 (
     SET new_branch=%new_branch::=-%
     SET new_branch=%new_branch:/=-%
     SET new_branch=%new_branch: =%
-    git checkout -b %new_branch% >nul 2>&1
+    git checkout -b %new_branch%
 
     REM Apply stashed changes
     git stash pop --quiet
 
     REM Add all changes and commit
     git add .
-    git commit -m "(Mods Updated by Push-Script) %date% %time%" --quiet
+    git commit -m "(Mods Updated by Push-Script) %date% %time%"
 
     REM Push the new branch
-    git push --quiet
+    git push
 
     REM Attempt to merge new_branch into main
-    git checkout main >nul 2>&1
+    git checkout main
     git pull --quiet
-    git merge %new_branch% --no-commit --no-ff --quiet
+    git merge %new_branch% --no-commit --no-ff
 
     git ls-files -u > nul
     if errorlevel 1 (
