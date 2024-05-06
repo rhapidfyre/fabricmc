@@ -1,4 +1,4 @@
-@echo off
+
 setlocal enabledelayedexpansion
 
 REM Change directory to your Minecraft mods repository
@@ -93,7 +93,6 @@ if errorlevel 1 (
     echo.
     echo The script is done, BUT..
     echo - - - The server won't update until it restarts. - - -
-    echo.
     echo Ask Melanie to restart the server for the new mods to take effect.
     echo Of course, you could play single player while you're waiting.
     echo.
