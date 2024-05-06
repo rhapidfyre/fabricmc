@@ -44,6 +44,7 @@ if errorlevel 1 (
     git fetch --quiet
 
     REM Create and switch to a new branch
+     REM Create and switch to a new branch
     FOR /F "tokens=1-5 delims=/: " %%a in ("%DATE% %TIME%") do (
         SET "year=%%c"
         SET "month=%%a"
@@ -51,8 +52,8 @@ if errorlevel 1 (
         SET "hour=%%d"
         SET "minute=%%e"
     )
-    SET "new_branch=update-%year%%month%%day%-%hour%%minute%"
-    echo Creating and switching to branch: "%new_branch%"
+    SET "new_branch=update-!year!!month!!day!-!hour!!minute!"
+    echo Creating and switching to branch: "!new_branch!"
     git checkout -b "%new_branch%"
 
     REM Apply stashed changes
