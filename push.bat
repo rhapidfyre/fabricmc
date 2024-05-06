@@ -38,7 +38,7 @@ if errorlevel 1 (
     git stash -u --quiet
 
     REM Fetch the latest changes from the remote repository
-    git fetch origin --quiet
+    git fetch --quiet
 
     REM Create and switch to a new branch
     FOR /F "tokens=*" %%i IN ('date /T') DO SET thedate=%%i
@@ -47,21 +47,21 @@ if errorlevel 1 (
     SET new_branch=%new_branch::=-%
     SET new_branch=%new_branch:/=-%
     SET new_branch=%new_branch: =%
-    git checkout -b %new_branch% --quiet
+    git checkout -b %new_branch% >nul 2>&1
 
     REM Apply stashed changes
     git stash pop --quiet
 
     REM Add all changes and commit
-    git add .
+    git add . >nul 2>&1
     git commit -m "(Mods Updated by Push-Script) %date% %time%" --quiet
 
     REM Push the new branch
-    git push origin %new_branch% --quiet
+    git push --quiet
 
     REM Attempt to merge new_branch into main
-    git checkout main --quiet
-    git pull origin main --quiet
+    git checkout main >nul 2>&1
+    git pull --quiet
     git merge %new_branch% --no-commit --no-ff --quiet
 
     git ls-files -u > nul
@@ -72,12 +72,12 @@ if errorlevel 1 (
         git merge --abort --quiet
     ) else (
         git commit -m "Merged updates from %new_branch%" --quiet
-        git push origin main --quiet
+        git push --quiet
         echo Mods updated and merged successfully.
     )
 
     REM Clean up - go back to the main branch either way
-    git checkout main --quiet
+    git checkout main
     
     echo The script is done, BUT..
     echo - - - The server won't update until it restarts. - - -
