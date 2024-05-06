@@ -2,6 +2,28 @@
 REM Change directory to your Minecraft mods repository
 cd C:/Minecraft/mods
 
+net session >nul 2>&1
+if %errorlevel% == 0 (
+	echo Running with administrator privileges. Skipping confirmations.
+) else (
+	echo *************************************************************************
+	echo !!!!!!!!!!!!!!!!!!!!!!!!!!!    WARNING    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	echo !!            YOU ARE ABOUT TO MAKE CHANGES TO THE CLOUD!              !!
+	echo *************************************************************************
+	echo If you continue, you will change all of the mods on everyone's computers!
+	echo           Please make sure this is what you are trying to do.
+	echo *************************************************************************
+	pause
+)
+
+REM Ask for confirmation before proceeding
+set /P confirm="You are changing the mods on our minecraft server. Type 'GO' to proceed."
+if /I "%confirm%" NEQ "GO" (
+    echo Great choice, it's always good to double check.
+	pause
+    exit /b
+)
+
 REM Check for uncommitted changes
 git diff-index --quiet HEAD --
 if errorlevel 1 (
@@ -27,7 +49,7 @@ if errorlevel 1 (
 
     REM Add all changes and commit
     git add .
-    git commit -m "Update mods %date% %time%"
+    git commit -m "(Mods Updated by Push-Script) %date% %time%"
 
     REM Push the new branch
     git push origin %new_branch%
@@ -52,6 +74,7 @@ if errorlevel 1 (
     REM Clean up - go back to the main branch either way
     git checkout main
 ) else (
-    echo No changes to sync.
+    echo No changes detected. The cloud files were not changed.
+	echo You may close this script.
 )
 pause
